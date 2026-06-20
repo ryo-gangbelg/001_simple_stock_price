@@ -23,10 +23,14 @@ def get_stock_price(ticker: str) -> None:
         change_pct = round((change / prev_close) * 100, 2) if prev_close else 0
         sign = "+" if change >= 0 else ""
 
+        week52_high = meta.get("fiftyTwoWeekHigh", 0)
+        week52_low = meta.get("fiftyTwoWeekLow", 0)
+
         print()
         print(f"  {Fore.CYAN}{name} ({ticker.upper()}){Style.RESET_ALL}")
         print(f"  現在値: {current:,.2f} {currency}")
         print(f"  前日比: {sign}{change:,.2f} ({sign}{change_pct:.2f}%)")
+        print(f"  52週高値: {week52_high:,.2f} / 安値: {week52_low:,.2f} {currency}")
         print()
 
     except Exception:
